@@ -26,6 +26,8 @@ function findProduct(barcode){
         }).done(function (data) {
             console.log(data);
 
+
+            data =  (data == null)? "barcode not found" : data;
             $("#results").html(data);
 
         }).fail(function (xhr, status, error) {
