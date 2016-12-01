@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - e5mode_products@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="e5mode_products">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="codelib"/>
+    <schema id="3" name="concrete"/>
+    <schema id="4" name="concrete5"/>
+    <schema id="5" name="drupalexam"/>
+    <schema id="6" name="howest"/>
+    <schema id="7" name="information_schema"/>
+    <schema id="8" name="mobileweb"/>
+    <schema id="9" name="mobileweb-amazeme"/>
+    <schema id="10" name="myfriends"/>
+    <schema id="11" name="mysql"/>
+    <schema id="12" name="nodejs"/>
+    <schema id="13" name="northwind"/>
+    <schema id="14" name="performance_schema"/>
+    <schema id="15" name="rpggame"/>
+    <table id="16" parent="1" name="products"/>
+    <column id="17" parent="16" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="18" parent="16" name="name">
+      <mandatory>1</mandatory>
+      <data-type>varchar(36)|0</data-type>
+    </column>
+    <column id="19" parent="16" name="barcode">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <column id="20" parent="16" name="price">
+      <mandatory>1</mandatory>
+      <data-type>decimal(10)|0</data-type>
+    </column>
+    <column id="21" parent="16" name="size">
+      <mandatory>1</mandatory>
+      <data-type>varchar(2)|0</data-type>
+    </column>
+    <key id="22" parent="16" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+  </database-model>
+</dataSource>
