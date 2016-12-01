@@ -7,6 +7,13 @@ function onDeviceReady() {
     destinationType = navigator.camera.DestinationType;
 }
 
+// A button will call this function
+function capturePhoto() {
+    // Take picture using device camera and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
+}
+
 // Called when a photo is successfully retrieved
 //
 function onPhotoDataSuccess(imageData) {
@@ -15,13 +22,6 @@ function onPhotoDataSuccess(imageData) {
     smallImage.style.display = 'block';
 
     smallImage.src = "data:image/jpeg;base64," + imageData;
-}
-
-// A button will call this function
-function capturePhoto() {
-    // Take picture using device camera and retrieve image as base64-encoded string
-    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
 }
 
 // Called if something bad happens.
