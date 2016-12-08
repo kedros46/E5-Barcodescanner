@@ -113,3 +113,19 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+#results{
+    position: absolute;
+    top: 20%;
+    left: 12%;
+
+    width: 75%;
+
+    z-index: 99999;
+    border: grey 1px solid;
+    border-radius: 10px;
+
+    box-shadow: #777777 1px 5px 3px 4px;
+    display: none;
+}
+

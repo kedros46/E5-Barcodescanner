@@ -12,8 +12,11 @@ function scanBarCode() {
     );
 }
 
+
+
 function findProduct(barcode){
-    alert("We got a barcode\nResult: " + barcode);
+
+    var resultBox = $("#results");
     $.ajax({
         type: "get",
         url: "https://drcnetwork.com/handle-request.php/findProducts",
@@ -23,31 +26,54 @@ function findProduct(barcode){
         datatype: "json",
         timeout: 2000
     }).done(function (data) {
+        data = JSON.parse(data);
+        alert("found barcode: " + barcode);
         if(data){
-            $("#results").html(processData(data));
+            var table = makeTable(data);
+            resultBox.html(table);
+            resultBox.append("<div class='row'><button class='btn btn-primary col-md-4' onclick='closeResults()'>OK</button></div>");
         }else {
-            $("#results").html("<p>barcode not found</p>");
+            resultBox.html("<p>barcode not found</p>");
         }
-
-
     }).fail(function (xhr, status, error) {
-
         alert("error happened: ");
+        resultBox.html("<p>error happened: " + xhr + "\n" + status + "\n" + error + "</p>");
 
-        $("#results").html("<p>error happened: " + xhr + "\n" + status + "\n" + error + "</p>");
-
+    }).always(function(){
+        resultBox.show();
     });
 }
 
-function processData(data) {
-    //[{id, name, barcode, price, size}]
-    var html = "";
-    data.map((element, index)=>{
-        html += "<p><span>element.NAME</span><span>element.SIZE</span><span>element.PRICE</span></p>";
-    });
-    return html;
+function makeTable(data){
+     return "<div class='table-responsive'><table class='table table-striped table-hover'>" +
+        "<tr><th>Product</th><th>Size</th><th>Price</th></tr>" +
+            makeRows(data) +
+        "</table></div>";
+
+}
+function makeProductRows(data){
+    var rows = "";
+    for(var i in data){
+        rows += "<tr> <td>"+data[i].name+"</td> <td>"+data[i].size+"</td> <td>"+data[i].price + " \u20ac</td> </tr>"
+    }
+    return rows;
 }
 
+function makeNearbyProductRows(data){
+    var rows = "";
+    for(var i in data){
+        rows += "<tr>";
+        rows += "<td>"+ data[i].gemeente + "</td><td>"+data[i].aantal+"</td>"
+        rows += "<td>"+data[i].name+"</td> <td>"+data[i].size+"</td> <td>"+data[i].price + " \u20ac</td>";
+        rows+= "</tr>"
+    }
+    return rows;
+}
+
+function closeResults(){
+    $("#results").hide();
+
+}
 
 // test barcode (flesje water)
 // 20490331

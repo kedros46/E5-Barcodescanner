@@ -12,32 +12,56 @@ function scanBarCode() {
     );
 }
 
+
+
 function findProduct(barcode){
-    alert("We got a barcode\nResult: " + barcode);
+
+    var resultBox = $("#results");
     $.ajax({
         type: "get",
-        url: "backend/handle-request.php/findProducts",
+        url: "https://drcnetwork.com/handle-request.php/findProducts",
         data: {
             barcode: barcode
         },
         datatype: "json",
         timeout: 2000
     }).done(function (data) {
-        alert(data);
-
-        data =  (data == null)? "barcode not found" : data;
-        $("#results").html(data);
-
+        data = JSON.parse(data);
+        alert("found barcode: " + barcode);
+        if(data){
+            var table = makeTable(data);
+            resultBox.html(table);
+            resultBox.append("<div class='row'><button class='btn btn-primary col-md-4' onclick='closeResults()'>OK</button></div>");
+        }else {
+            resultBox.html("<p>barcode not found</p>");
+        }
     }).fail(function (xhr, status, error) {
-
         alert("error happened: ");
-        alert(status);
-        alert(error);
-        console.log(xhr, status , error);
+        resultBox.html("<p>error happened: " + xhr + "\n" + status + "\n" + error + "</p>");
 
-        $("#results").html("<p>error happened: " + xhr + "\n" + status + "\n" + error + "</p>");
-
+    }).always(function(){
+        resultBox.show();
     });
+}
+
+function makeTable(data){
+     return "<div class='table-responsive'><table class='table table-striped table-hover'>" +
+        "<tr><th>Product</th><th>Size</th><th>Price</th></tr>" +
+            makeRows(data) +
+        "</table></div>";
+
+}
+function makeRows(data){
+    var rows = "";
+    for(var i in data){
+        rows += "<tr> <td>"+data[i].name+"</td> <td>"+data[i].size+"</td> <td>"+data[i].price + " \u20ac</td> </tr>"
+    }
+    return rows;
+}
+
+function closeResults(){
+    $("#results").hide();
+
 }
 
 // test barcode (flesje water)
