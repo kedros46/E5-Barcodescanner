@@ -24,7 +24,7 @@ switch($page) {
         $product_barcode = ($_GET['barcode']);
         //var_dump($product_barcode);
         try {
-            $sql = "SELECT * FROM products WHERE barcode = :barcode  ";
+            $sql = "SELECT * FROM producten WHERE barcode = :barcode  ";
 
             $params = array(":barcode" => $product_barcode);
             $stmt = $conn->prepare($sql);
@@ -41,7 +41,7 @@ switch($page) {
         break;
     case "findStores":
         try{
-            $sql = "SELECT * FROM winkels";
+            $sql = "SELECT * FROM winkel";
             $stmt = $conn->query($sql);
 
             echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
@@ -49,12 +49,15 @@ switch($page) {
             json_encode(($e));
         }
         break;
+
     case "findNearby":
+        $product_barcode = ($_GET['barcode']);
         try{
-            $sql = "SELECT * FROM products 
-                    JOIN winkels_products ON products.id = ArtikelID 
-                    JOIN winkels ON WinkelID = winkels.id 
-                    WHERE barcode = :barcode";
+            $sql = "SELECT Distinct * FROM producten 
+                    JOIN product_winkel ON producten.barcode = product_code  AND producten.size = product_winkel.size 
+                    JOIN winkel ON winkel_id = winkel.id 
+                    WHERE barcode = :barcode
+                    order By winkel.gemeente, producten.size";
 
             $params = array(":barcode" => $product_barcode);
             $stmt = $conn->prepare($sql);

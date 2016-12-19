@@ -115,17 +115,21 @@ h1 {
 }
 
 #results{
-    position: absolute;
-    top: 20%;
-    left: 12%;
 
-    width: 75%;
+    background-color: #f0f0f0;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+
+    width: 90%;
 
     z-index: 99999;
     border: grey 1px solid;
     border-radius: 10px;
 
-    box-shadow: #777777 1px 5px 3px 4px;
-    display: none;
+    box-shadow: #A9A9A9 8px 8px 30px 2px;
 }
 
+.table-hover tbody tr:hover td{
+    background-color: lightskyblue;
+}
