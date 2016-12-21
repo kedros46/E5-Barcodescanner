@@ -5,7 +5,9 @@ function scanBarCode() {
     cordova.plugins.barcodeScanner.scan(
         function (result) {
             //Vul hier de callback in die de gegevens opvraagt
+            //result.text geeft de barcode terug
 
+            //volgende lijn is deel van de demonstartie
             findProduct(result.text);
         },
         function (error) {
@@ -16,6 +18,9 @@ function scanBarCode() {
     );
 }
 
+
+
+/*============= DEMO ================*/
 function findProduct(barcode){
     var resultBox = $("#results");
     $.ajax({
@@ -71,6 +76,3 @@ function closeResults(){
     $("#results").hide();
 
 }
-
-// test barcode (flesje water)
-// 20490331

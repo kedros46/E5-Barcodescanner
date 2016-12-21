@@ -8,7 +8,7 @@
   <engines>
     <engine name="cordova" version=">=3.0.0"/>
   </engines>
-  <js-module src="www/barcodescanner.js" name="BarcodeScanner">
+  <js-module src="www/Barcodescanner.js" name="BarcodeScanner">
     <clobbers target="cordova.plugins.barcodeScanner"/>
   </js-module>
   <platform name="ios">
